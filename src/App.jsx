@@ -75,6 +75,7 @@ function App() {
         const data = await response.json();
         console.log(data);
         const transformedData = data.map((country) => ({
+          flag: country.flags.png,
           name: country.name.common,
           region: country.region,
           population: country.population,
