@@ -1,11 +1,23 @@
-import "./App.css";
+import "./../App.css";
 import PropTypes from "prop-types";
+import { useParams, useNavigate } from "react-router-dom";
 
-export default function Detail({ country }) {
+export default function Detail({ countries }) {
+  const navigate = useNavigate();
+  const { name } = useParams();
+
+  const country = countries.find((c) => c.name === name);
+  if (!country) return <p>No such country found.</p>;
+
   return (
     <div>
-      <div className="flex justify-start w-full min-w-screen h-28 bg-indigo-300">
-        <button className="mx-20 my-10 px-4 border border-black">Back</button>
+      <div className="flex justify-start w-full min-w-screen h-28">
+        <button
+          className="mx-20 my-10 px-4 border border-black"
+          onClick={() => navigate("/")}
+        >
+          Back
+        </button>
       </div>
       <div className="flex flex-col md:flex-row md:justify-center gap-20 min-h-96 p-4">
         <img src={country.flag} alt={`${country.name}'s flag`} />
@@ -56,5 +68,5 @@ export default function Detail({ country }) {
 }
 
 Detail.propTypes = {
-  country: PropTypes.string.isRequired,
+  countries: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

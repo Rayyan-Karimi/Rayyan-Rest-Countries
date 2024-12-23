@@ -1,4 +1,4 @@
-import "./App.css";
+import "./../App.css";
 import PropTypes from "prop-types";
 
 export default function ManipulateData({

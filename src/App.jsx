@@ -1,14 +1,22 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import ManipulateData from "./ManipulateData";
-import Countries from "./Countries";
-import Detail from "./Detail";
-import ThemeComponent from "./ThemeComponent";
+import Detail from "./components/Detail";
+import ThemeComponent from "./components/ThemeComponent";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import { useNavigate } from "react-router-dom";
 
 function Hero() {
+  const navigate = useNavigate();
+  const goToHome = () => {
+    navigate("/home");
+  };
+
   return (
     <div className="flex justify-between shadow-lg py-6 px-4">
-      <h2 className="font-bold">Where in the world?</h2>
+      <button onClick={goToHome} className="font-bold">
+        Where in the world?
+      </button>
       <ThemeComponent />
     </div>
   );
@@ -22,6 +30,7 @@ function App() {
       population: 83000000,
       capital: "Berlin",
       area: 10,
+      flag: "https://flagcdn.com/w320/de.png",
     },
     {
       name: "USA",
@@ -29,6 +38,7 @@ function App() {
       population: 192120000,
       capital: "Washington DC",
       area: 100,
+      flag: "https://flagcdn.com/w320/us.png",
     },
     {
       name: "Brazil",
@@ -108,29 +118,28 @@ function App() {
     fetchData();
   });*/
   return (
-    <div>
+    <Router>
       <Hero />
-      {/* <div className="px-4 bg-slate-200 min-h-screen"> */}
-        {/* <ManipulateData
-          filterText={filterText}
-          setFilterText={setFilterText}
-          countries={countries}
-          key={countries.forEach((country) => country.name)}
-          selectedRegion={selectedRegion}
-          setSelectedRegion={setSelectedRegion}
-          sortBy={sortBy}
-          setSortBy={setSortBy}
-        />
-        <Countries
-          key={countries.name}
-          countries={countries}
-          filterText={filterText}
-          selectedRegion={selectedRegion}
-          sortBy={sortBy}
-        /> */}
-      {/* </div> */}
-      <Detail key={countries[0].name} country={countries[0]} />
-    </div>
+      <div className="px-4 bg-slate-200 min-h-screen">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                filterText={filterText}
+                sortBy={sortBy}
+                setSortBy={setSortBy}
+                setFilterText={setFilterText}
+                countries={countries}
+                setSelectedRegion={setSelectedRegion}
+                selectedRegion={selectedRegion}
+              />
+            }
+          />
+          <Route path="/:name" element={<Detail countries={countries} />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

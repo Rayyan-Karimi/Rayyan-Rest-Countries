@@ -1,9 +1,18 @@
-import "./App.css";
+import "./../App.css";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 export default function CountryCard({ country }) {
+  const navigate = useNavigate();
+  const goToCountryDetails = () => {
+    navigate(`/${country.name}`);
+  };
+
   return (
-    <button className="bg-white rounded-lg shadow-md p-4 w-full">
+    <button
+      className="bg-white rounded-lg shadow-md p-4 w-full"
+      onClick={goToCountryDetails}
+    >
       <img src={country.flag} alt={`${country.name}'s flag`} />
       <h2 className="text-lg font-bold">{country.name}</h2>
       <p className="text-sm">
