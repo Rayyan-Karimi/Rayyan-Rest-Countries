@@ -1,13 +1,21 @@
 import "./App.css";
 import PropTypes from "prop-types";
 
-export default function SearchAndFilter({
+export default function ManipulateData({
   filterText,
   setFilterText,
   countries,
   setSelectedRegion,
+  setSortBy,
 }) {
   const regions = Array.from(new Set(countries.map((cont) => cont.region)));
+  const sortByOptions = ["areaAsc", "areaDesc", "popAsc", "popDesc"];
+  const showSortByOptions = [
+    "Area Asc.",
+    "Area Desc.",
+    "Population Asc.",
+    "Population Desc.",
+  ];
   return (
     <div className="flex justify-between flex-col md:flex-row gap-4 py-4">
       <div className="relative w-full md:w-auto">
@@ -46,14 +54,26 @@ export default function SearchAndFilter({
           </option>
         ))}
       </select>
+      <select
+        onChange={(e) => setSortBy(e.target.value)}
+        className="w-1/2 md:w-auto md:min-w-52 px-3 py-2 rounded-lg bg-white"
+      >
+        <option value="">Sort Options</option>
+        {sortByOptions.map((sortByOption) => (
+          <option key={sortByOption} value={sortByOption}>
+            {showSortByOptions[sortByOptions.indexOf(sortByOption)]}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }
 
-SearchAndFilter.propTypes = {
+ManipulateData.propTypes = {
   filterText: PropTypes.string,
   setFilterText: PropTypes.func,
   countries: PropTypes.array.isRequired,
   selectedRegion: PropTypes.string,
   setSelectedRegion: PropTypes.func,
+  setSortBy: PropTypes.func,
 };
