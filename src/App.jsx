@@ -2,6 +2,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import ManipulateData from "./ManipulateData";
 import Countries from "./Countries";
+import Detail from "./Detail";
 import ThemeComponent from "./ThemeComponent";
 
 function Hero() {
@@ -109,8 +110,8 @@ function App() {
   return (
     <div>
       <Hero />
-      <div className="px-4 bg-slate-200 min-h-screen">
-        <ManipulateData
+      {/* <div className="px-4 bg-slate-200 min-h-screen"> */}
+        {/* <ManipulateData
           filterText={filterText}
           setFilterText={setFilterText}
           countries={countries}
@@ -126,8 +127,9 @@ function App() {
           filterText={filterText}
           selectedRegion={selectedRegion}
           sortBy={sortBy}
-        />
-      </div>
+        /> */}
+      {/* </div> */}
+      <Detail key={countries[0].name} country={countries[0]} />
     </div>
   );
 }

@@ -44,17 +44,6 @@ export default function ManipulateData({
         />
       </div>
       <select
-        onChange={(e) => setSelectedRegion(e.target.value)}
-        className="w-1/2 md:w-auto md:min-w-52 px-3 py-2 rounded-lg bg-white"
-      >
-        <option value="">Filter by Region</option>
-        {regions.map((region) => (
-          <option key={region} value={region}>
-            {region}
-          </option>
-        ))}
-      </select>
-      <select
         onChange={(e) => setSortBy(e.target.value)}
         className="w-1/2 md:w-auto md:min-w-52 px-3 py-2 rounded-lg bg-white"
       >
@@ -65,6 +54,18 @@ export default function ManipulateData({
           </option>
         ))}
       </select>
+      <select
+        onChange={(e) => setSelectedRegion(e.target.value)}
+        className="w-1/2 md:w-auto md:min-w-52 px-3 py-2 rounded-lg bg-white"
+      >
+        <option value="">Filter by Region</option>
+        {regions.map((region) => (
+          <option key={region} value={region}>
+            {region}
+          </option>
+        ))}
+      </select>
+      
     </div>
   );
 }
