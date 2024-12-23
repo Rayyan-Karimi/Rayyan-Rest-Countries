@@ -11,15 +11,15 @@ export default function Detail({ countries }) {
 
   return (
     <div>
-      <div className="flex justify-start w-full min-w-screen h-28">
+      <div className="bg-white dark:bg-slate-700 flex justify-start w-full min-w-screen h-28">
         <button
-          className="mx-20 my-10 px-4 border border-black"
+          className="mx-20 my-10 px-4 border border-black dark:border-white dark:text-white"
           onClick={() => navigate("/")}
         >
           Back
         </button>
       </div>
-      <div className="flex flex-col md:flex-row md:justify-center gap-20 min-h-96 p-4">
+      <div className="pb-24 bg-white dark:bg-slate-700 dark:text-white flex flex-col md:flex-row md:justify-center gap-20 min-h-96 p-4">
         <img src={country.flag} alt={`${country.name}'s flag`} />
         <div className="border text-left p-4">
           <h2 className="text-lg font-bold">{country.name}</h2>
