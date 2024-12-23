@@ -10,7 +10,7 @@ export default function CountryCard({ country }) {
 
   return (
     <button
-      className="bg-white rounded-lg shadow-md p-4 w-full"
+      className="bg-white dark:bg-slate-700 rounded-lg shadow-md p-4 w-full"
       onClick={goToCountryDetails}
     >
       <img src={country.flag} alt={`${country.name}'s flag`} />

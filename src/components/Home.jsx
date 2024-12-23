@@ -12,7 +12,7 @@ export default function Home({
   selectedRegion,
 }) {
   return (
-    <div>
+    <div className="px-4 bg-slate-100 py-2 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
       <ManipulateData
         filterText={filterText}
         setFilterText={setFilterText}

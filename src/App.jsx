@@ -4,19 +4,11 @@ import Detail from "./components/Detail";
 import ThemeComponent from "./components/ThemeComponent";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
-import { useNavigate } from "react-router-dom";
 
 function Hero() {
-  const navigate = useNavigate();
-  const goToHome = () => {
-    navigate("/home");
-  };
-
   return (
-    <div className="flex justify-between shadow-lg py-6 px-4">
-      <button onClick={goToHome} className="font-bold">
-        Where in the world?
-      </button>
+    <div className="flex justify-between shadow-lg py-6 px-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+      <h2 className="font-bold">Where in the world?</h2>
       <ThemeComponent />
     </div>
   );
@@ -120,25 +112,23 @@ function App() {
   return (
     <Router>
       <Hero />
-      <div className="px-4 bg-slate-200 min-h-screen">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                filterText={filterText}
-                sortBy={sortBy}
-                setSortBy={setSortBy}
-                setFilterText={setFilterText}
-                countries={countries}
-                setSelectedRegion={setSelectedRegion}
-                selectedRegion={selectedRegion}
-              />
-            }
-          />
-          <Route path="/:name" element={<Detail countries={countries} />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Home
+              filterText={filterText}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+              setFilterText={setFilterText}
+              countries={countries}
+              setSelectedRegion={setSelectedRegion}
+              selectedRegion={selectedRegion}
+            />
+          }
+        />
+        <Route path="/:name" element={<Detail countries={countries} />} />
+      </Routes>
     </Router>
   );
 }

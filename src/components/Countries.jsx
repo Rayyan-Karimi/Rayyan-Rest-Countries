@@ -35,7 +35,7 @@ export default function Countries({
   const filteredAndSortedCountries = handleSorting(filteredCountries, sortBy);
 
   return (
-    <div className="grid gap-4 p-4 grid-cols-1 md:grid-cols-4">
+    <div className="bg-slate-100 dark:bg-slate-800 grid gap-4 p-4 mb-4 grid-cols-1 md:grid-cols-4">
       {filteredAndSortedCountries.map((country) => (
         <CountryCard key={country.name} country={country} />
       ))}
