@@ -1,7 +1,45 @@
 import "./App.css";
 import PropTypes from "prop-types";
+import { useState } from "react";
 
-function Countries() {
+function Countries({ countries, filterText, selectedRegion }) {
+  return (
+    <div
+      className="grid gap-3"
+      style={{ gridTemplateColumns: "repeat(4, 1fr)" }}
+    >
+      {countries
+        .filter(
+          (c) =>
+            filterText === "" ||
+            c.name.toLowerCase().includes(filterText.toLowerCase()) ||
+            c.region.toLowerCase().includes(filterText.toLowerCase())
+        )
+        .filter((c) => selectedRegion === "" || c.region === selectedRegion)
+        .map((country) => (
+          <CountryCard key={country.name} country={country} />
+        ))}
+    </div>
+  );
+}
+function CountryCard({ country }) {
+  return (
+    <div className="bg-white rounded-lg shadow-md p-4 w-full">
+      <h2 className="text-lg font-bold">{country.name}</h2>
+      <p className="text-sm">
+        <span className="font-bold">Population:</span> {country.population}
+      </p>
+      <p className="text-sm">
+        <span className="font-bold">Region:</span> {country.region}
+      </p>
+      <p className="text-sm">
+        <span className="font-bold">Capital:</span>
+        {country.capital}
+      </p>
+    </div>
+  );
+}
+function App() {
   const countries = [
     {
       name: "Germany",
@@ -53,46 +91,37 @@ function Countries() {
       capital: "Sri Jayawardenepurem Kotte",
     },
   ];
-  return (
-    <div
-      className="grid gap-3"
-      style={{ gridTemplateColumns: "repeat(4, 1fr)" }}
-    >
-      {countries.map((country) => (
-        <CountryCard key={country} country={country} />
-      ))}
-    </div>
-  );
-}
-function CountryCard({ country }) {
-  return (
-    <div className="bg-white rounded-lg shadow-md p-4 w-full">
-      <h2 className="text-lg font-bold">{country.name}</h2>
-      <p className="text-sm">
-        <span className="font-bold">Population:</span> {country.population}
-      </p>
-      <p className="text-sm">
-        <span className="font-bold">Region:</span> {country.region}
-      </p>
-      <p className="text-sm">
-        <span className="font-bold">Capital:</span>
-        {country.capital}
-      </p>
-    </div>
-  );
-}
-function App() {
+  const [filterText, setFilterText] = useState("");
+  const [selectedRegion, setSelectedRegion] = useState("");
   return (
     <div>
       <Hero />
       <div className="px-4 bg-slate-200">
-        <SearchAndFilter />
-        <Countries />
+        <SearchAndFilter
+          filterText={filterText}
+          setFilterText={setFilterText}
+          countries={countries}
+          key={countries.forEach((country) => country.name)}
+          selectedRegion={selectedRegion}
+          setSelectedRegion={setSelectedRegion}
+        />
+        <Countries
+          key={countries.name}
+          countries={countries}
+          filterText={filterText}
+          selectedRegion={selectedRegion}
+        />
       </div>
     </div>
   );
 }
-function SearchAndFilter() {
+function SearchAndFilter({
+  filterText,
+  setFilterText,
+  countries,
+  setSelectedRegion,
+}) {
+  const regions = Array.from(new Set(countries.map((cont) => cont.region)));
   return (
     <div className="flex justify-between flex-col md:flex-row gap-4 py-4">
       <div className="relative w-full md:w-auto">
@@ -114,17 +143,22 @@ function SearchAndFilter() {
         </span>
         <input
           type="text"
+          value={filterText}
+          onChange={(e) => setFilterText(e.target.value)}
           placeholder="Search for a country.."
           className="rounded-lg text-md text-center py-2 w-full md:w-auto md:min-w-80"
         />
       </div>
-      <select className="w-1/2 md:w-auto md:min-w-52 px-3 py-2 rounded-lg bg-white">
-        <option>Filter by Region</option>
-        <option>Africa</option>
-        <option>Americas</option>
-        <option>Asia</option>
-        <option>Europe</option>
-        <option>Oceania</option>
+      <select
+        onChange={(e) => setSelectedRegion(e.target.value)}
+        className="w-1/2 md:w-auto md:min-w-52 px-3 py-2 rounded-lg bg-white"
+      >
+        <option value="">Filter by Region</option>
+        {regions.map((region) => (
+          <option key={region} value={region}>
+            {region}
+          </option>
+        ))}
       </select>
     </div>
   );
@@ -164,5 +198,16 @@ function Hero() {
 CountryCard.propTypes = {
   country: PropTypes.object.isRequired,
 };
-
+Countries.propTypes = {
+  countries: PropTypes.array.isRequired,
+  filterText: PropTypes.string,
+  selectedRegion: PropTypes.string,
+};
+SearchAndFilter.propTypes = {
+  filterText: PropTypes.string,
+  setFilterText: PropTypes.func,
+  countries: PropTypes.array.isRequired,
+  selectedRegion: PropTypes.string,
+  setSelectedRegion: PropTypes.func,
+};
 export default App;
