@@ -1,4 +1,4 @@
-import "./../App.css";
+import "./../../App.css";
 import PropTypes from "prop-types";
 import Borders from "./Borders";
 import { useParams, useNavigate } from "react-router-dom";

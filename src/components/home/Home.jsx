@@ -1,4 +1,4 @@
-import ManipulateData from "./ManipulateData";
+import ManipulateData from "../util/ManipulateData";
 import CountriesList from "./CountriesList";
 import PropTypes from "prop-types";
 

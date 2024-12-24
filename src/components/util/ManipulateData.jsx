@@ -1,4 +1,4 @@
-import "./../App.css";
+import "./../../App.css";
 import PropTypes from "prop-types";
 
 export default function ManipulateData({
@@ -31,19 +31,17 @@ export default function ManipulateData({
     "Population Desc.",
   ];
   return (
-    <div className="flex justify-between flex-col md:flex-row gap-4 py-4 pr-8">
-      <div className="relative w-full md:w-1/4">
-        <input
-          type="text"
-          value={filterText}
-          onChange={(e) => setFilterText(e.target.value)}
-          placeholder="Search for a country.."
-          className="bg-white dark:bg-slate-800 rounded-lg text-md pl-10 pr-3 py-2 w-full md:w-auto"
-        />
-      </div>
+    <div className="flex flex-wrap gap-4 py-4 justify-evenly items-center md:pr-8">
+      <input
+        type="text"
+        value={filterText}
+        onChange={(e) => setFilterText(e.target.value)}
+        placeholder="Search for a country.."
+        className="bg-white dark:bg-slate-800 rounded-lg text-md pl-10 pr-3 py-2 w-[80%] md:w-min"
+      />
       <select
         onChange={(e) => setSortBy(e.target.value)}
-        className="bg-white hover:cursor-pointer dark:bg-slate-800 w-1/2 md:w-1/4 px-3 py-2 rounded-lg"
+        className="bg-white hover:cursor-pointer dark:bg-slate-800 w-min px-3 py-2 rounded-lg"
       >
         <option value="">Sort Options</option>
         {sortByOptions.map((sortByOption) => (
@@ -57,7 +55,7 @@ export default function ManipulateData({
           setSelectedRegion(e.target.value);
           setSelectedSubRegion("");
         }}
-        className="bg-white hover:cursor-pointer dark:bg-slate-800 w-1/2 md:w-1/4 px-3 py-2 rounded-lg"
+        className="bg-white hover:cursor-pointer dark:bg-slate-800 w-min px-3 py-2 rounded-lg"
       >
         <option value="">Filter by Region</option>
         {regions.map((region) => (
@@ -69,7 +67,7 @@ export default function ManipulateData({
       {selectedRegion && (
         <select
           onChange={(e) => setSelectedSubRegion(e.target.value)}
-          className="bg-white hover:cursor-pointer dark:bg-slate-800 w-1/2 md:w-1/4 px-3 py-2 rounded-lg"
+          className="bg-white hover:cursor-pointer dark:bg-slate-800 w-min px-3 py-2 rounded-lg"
         >
           <option value="">Filter by Sub-Region</option>
           {regionsToSubRegions[selectedRegion].map((subregion) => (

@@ -1,4 +1,4 @@
-import "./../App.css";
+import "./../../App.css";
 import PropTypes from "prop-types";
 import CountryCard from "./CountryCard";
 
@@ -39,7 +39,8 @@ export default function CountriesList({
   const filteredAndSortedCountries = handleSorting(filteredCountries, sortBy);
 
   return (
-    <div className="bg-slate-100 dark:bg-slate-900 grid gap-10 p-8 mb-4 grid-cols-1 md:grid-cols-4">
+    // <div className="bg-slate-100 dark:bg-slate-900 grid gap-10 p-8 mb-4 grid-cols-1 md:grid-cols-4">
+      <div className="flex flex-wrap justify-evenly gap-16 pt-5 bg-slate-100 dark:bg-slate-900">
       {filteredAndSortedCountries.map((country) => (
         <CountryCard key={country.name.common} country={country} />
       ))}

@@ -1,9 +1,10 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import Detail from "./components/Detail";
+import Detail from "./components/details/Detail";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./components/Home";
-import Hero from "./components/Hero";
+import Home from "./components/home/Home";
+import Hero from "./components/home/Hero";
+import IsLoading from "./components/util/IsLoading";
 
 function App() {
   const [filterText, setFilterText] = useState("");
@@ -34,23 +35,34 @@ function App() {
     <Router>
       <Hero />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              filterText={filterText}
-              sortBy={sortBy}
-              setSortBy={setSortBy}
-              setFilterText={setFilterText}
-              countries={countries}
-              setSelectedRegion={setSelectedRegion}
-              selectedRegion={selectedRegion}
-              selectedSubRegion={selectedSubRegion}
-              setSelectedSubRegion={setSelectedSubRegion}
+        {isLoading ? (
+          <Route path="/" element={<IsLoading />} />
+        ) : hasError ? (
+          <Route
+            path="/"
+            element={<h1>Error loading data. Please try again later.</h1>}
+          />
+        ) : (
+          <>
+            <Route
+              path="/"
+              element={
+                <Home
+                  filterText={filterText}
+                  sortBy={sortBy}
+                  setSortBy={setSortBy}
+                  setFilterText={setFilterText}
+                  countries={countries}
+                  setSelectedRegion={setSelectedRegion}
+                  selectedRegion={selectedRegion}
+                  selectedSubRegion={selectedSubRegion}
+                  setSelectedSubRegion={setSelectedSubRegion}
+                />
+              }
             />
-          }
-        />
-        <Route path="/:name" element={<Detail countries={countries} />} />
+            <Route path="/:name" element={<Detail countries={countries} />} />
+          </>
+        )}
       </Routes>
     </Router>
   );

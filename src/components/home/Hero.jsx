@@ -1,4 +1,4 @@
-import ThemeComponent from "./ThemeComponent.jsx";
+import ThemeComponent from "../util/ThemeComponent.jsx";
 
 export default function Hero() {
     return (
