@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function CountryCard({ country }) {
   const navigate = useNavigate();
   const goToCountryDetails = () => {
-    navigate(`/${country.name}`);
+    navigate(`/${country.name.common}`);
   };
 
   return (
@@ -13,8 +13,8 @@ export default function CountryCard({ country }) {
       className="bg-white dark:bg-slate-700 rounded-lg shadow-md p-4 w-full"
       onClick={goToCountryDetails}
     >
-      <img src={country.flag} alt={`${country.name}'s flag`} />
-      <h2 className="text-lg font-bold">{country.name}</h2>
+      <img className="w-full h-32 p-2" src={country.flags.png} alt={`${country.name.common}'s flag`} />
+      <h2 className="text-lg font-bold">{country.name.common}</h2>
       <p className="text-sm">
         <span className="font-bold">Population:</span> {country.population}
       </p>

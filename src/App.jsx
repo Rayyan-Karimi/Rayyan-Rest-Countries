@@ -15,100 +15,115 @@ function Hero() {
 }
 
 function App() {
-  const countries = [
-    {
-      name: "Germany",
-      region: "Europe",
-      population: 83000000,
-      capital: "Berlin",
-      area: 10,
-      flag: "https://flagcdn.com/w320/de.png",
-    },
-    {
-      name: "USA",
-      region: "Americas",
-      population: 192120000,
-      capital: "Washington DC",
-      area: 100,
-      flag: "https://flagcdn.com/w320/us.png",
-    },
-    {
-      name: "Brazil",
-      region: "Americas",
-      population: 93000000,
-      capital: "Brasilia",
-      area: 1000,
-    },
-    {
-      name: "Iceland",
-      region: "Europe",
-      population: 13000000,
-      capital: "Rejkjavik",
-      area: 20,
-    },
-    {
-      name: "Afghan",
-      region: "Asia",
-      population: 23000000,
-      capital: "Kabul",
-      area: 101,
-    },
-    {
-      name: "Algeria",
-      region: "Africa",
-      population: 43000000,
-      capital: "Algiers",
-      area: 90,
-    },
-    {
-      name: "New Zealand",
-      region: "Oceania",
-      population: 33000000,
-      capital: "Wellington",
-      area: 896,
-    },
-    {
-      name: "Sudan",
-      region: "Africa",
-      population: 21000000,
-      capital: "Khartoum",
-      area: 575,
-    },
-    {
-      name: "Sri Lanka",
-      region: "Asia",
-      population: 3000000,
-      capital: "Sri Jayawardenepurem Kotte",
-      area: 1500,
-    },
-  ];
+  // const countries = [
+  //   {
+  //     name: "Germany",
+  //     region: "Europe",
+  //     population: 83000000,
+  //     capital: "Berlin",
+  //     area: 10,
+  //     flag: "https://flagcdn.com/w320/de.png",
+  //   },
+  //   {
+  //     name: "USA",
+  //     region: "Americas",
+  //     population: 192120000,
+  //     capital: "Washington DC",
+  //     area: 100,
+  //     flag: "https://flagcdn.com/w320/us.png",
+  //   },
+  //   {
+  //     name: "Brazil",
+  //     region: "Americas",
+  //     population: 93000000,
+  //     capital: "Brasilia",
+  //     area: 1000,
+  //   },
+  //   {
+  //     name: "Iceland",
+  //     region: "Europe",
+  //     population: 13000000,
+  //     capital: "Rejkjavik",
+  //     area: 20,
+  //   },
+  //   {
+  //     name: "Afghan",
+  //     region: "Asia",
+  //     population: 23000000,
+  //     capital: "Kabul",
+  //     area: 101,
+  //   },
+  //   {
+  //     name: "Algeria",
+  //     region: "Africa",
+  //     population: 43000000,
+  //     capital: "Algiers",
+  //     area: 90,
+  //   },
+  //   {
+  //     name: "New Zealand",
+  //     region: "Oceania",
+  //     population: 33000000,
+  //     capital: "Wellington",
+  //     area: 896,
+  //   },
+  //   {
+  //     name: "Sudan",
+  //     region: "Africa",
+  //     population: 21000000,
+  //     capital: "Khartoum",
+  //     area: 575,
+  //   },
+  //   {
+  //     name: "Sri Lanka",
+  //     region: "Asia",
+  //     population: 3000000,
+  //     capital: "Sri Jayawardenepurem Kotte",
+  //     area: 1500,
+  //   },
+  // ];
   const [filterText, setFilterText] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("");
-  // const [countries, setCountries] = useState([]);
+  const [countries, setCountries] = useState([]);
   const [sortBy, setSortBy] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
-  /*
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true);
         const response = await fetch("https://restcountries.com/v3.1/all");
         const data = await response.json();
         console.log(data);
-        const transformedData = data.map((country) => ({
-          flag: country.flags.png,
-          name: country.name.common,
-          region: country.region,
-          population: country.population,
-          capital: country.capital,
-          area: country.area,
-        }));
-        setCountries(transformedData);
+        // const transformedData = data.map((country) => ({
+        //   flag: country.flags.png,
+        //   name: country.name.common,
+        //   region: country.region,
+        //   population: country.population,
+        //   capital: country.capital,
+        //   area: country.area,
+        //   nativeName: country.name.official,
+        //   topLevelDomain: country.tld,
+          // currency: Object.keys(country.currencies || {}).length
+          //   ? country.currencies[Object.keys(country.currencies)[0]].name
+          //   : "N/A",
+        //   languages:
+            // Object.values(country.languages || {})
+            //   .sort()
+            //   .join(", ") || "Not available.",
+        //   subregion: country.subregion || "N/A",
+        // }));
+        setCountries(data);
+        setIsLoading(false);
       } catch (err) {
+        setIsLoading(false);
+        setHasError(true);
         console.error(err);
       }
     };
     fetchData();
-  });*/
+  }, []);
   return (
     <Router>
       <Hero />
