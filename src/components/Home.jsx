@@ -1,5 +1,5 @@
 import ManipulateData from "./ManipulateData";
-import Countries from "./Countries";
+import CountriesList from "./CountriesList";
 import PropTypes from "prop-types";
 
 export default function Home({
@@ -14,7 +14,7 @@ export default function Home({
   setSelectedSubRegion,
 }) {
   return (
-    <div className="px-4 bg-slate-100 py-2 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
+    <div className="px-4 bg-slate-100 py-2 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-w-screen min-h-screen">
       <ManipulateData
         filterText={filterText}
         setFilterText={setFilterText}
@@ -27,7 +27,7 @@ export default function Home({
         sortBy={sortBy}
         setSortBy={setSortBy}
       />
-      <Countries
+      <CountriesList
         countries={countries}
         filterText={filterText}
         selectedRegion={selectedRegion}

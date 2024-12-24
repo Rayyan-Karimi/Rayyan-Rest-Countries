@@ -23,27 +23,33 @@ export default function Detail({ countries }) {
 
   return (
     <div>
-      <div className="bg-slate-200 dark:bg-slate-700 flex justify-start w-full min-w-screen h-28">
+      <div className="bg-slate-200 p-8 pb-0 dark:bg-slate-700 flex justify-start w-full min-w-screen">
         <button
-          className="mx-[10%] my-10 px-6 border border-black bg-white dark:bg-inherit shadow-lg dark:border-white dark:text-white"
+          className="mx-[10%] px-6 border border-black bg-white dark:bg-inherit shadow-lg dark:border-white dark:text-white"
           onClick={() => navigate("/")}
         >
           Back
         </button>
       </div>
-      <div className="pb-24 bg-slate-200 dark:bg-slate-700 dark:text-white justify-center items-center flex flex-col md:flex-row md:justify-center gap-20 min-h-[30rem] px-[8%]">
-        <img
-          className="md:h-[15vw] md:w-[30vw] shadow-lg dark:shadow-slate-500"
-          src={country.flags.png}
-          alt={`${country.name.common}'s flag`}
-        />
-        <div className="text-left p-4">
+      <div className="bg-slate-200 dark:bg-slate-700 dark:text-white justify-center items-center flex flex-col md:flex-row md:justify-center gap-20 min-h-[33rem] px-[8%]">
+        <div className="flex justify-center items-center h-auto w-[80%]">
+          <img
+            className="shadow-lg dark:shadow-slate-500"
+            src={country.flags.png}
+            alt={`${country.name.common}'s flag`}
+          />
+        </div>
+        <div className="text-left p-4 w-full">
           <h2 className="text-lg font-bold">{country.name.common}</h2>
           <div className="flex gap-10 py-4">
-            <div>
+            <div className="flex flex-col gap-1">
               <p className="text-sm">
                 <span className="font-bold">Native Name: </span>{" "}
-                {country.name.official}
+                {
+                  country.name.nativeName[
+                    Object.keys(country.name.nativeName)[0]
+                  ].official
+                }
               </p>
               <p className="text-sm">
                 <span className="font-bold">Population: </span>{" "}
@@ -59,13 +65,17 @@ export default function Detail({ countries }) {
               </p>
               <p className="text-sm">
                 <span className="font-bold">Capital: </span>
-                {country.capital}
+                {Array.isArray(country.capital)
+                  ? country.capital.join(", ")
+                  : country.capital}
               </p>
             </div>
-            <div>
+            <div className="flex flex-col gap-1">
               <p className="text-sm">
                 <span className="font-bold">Top Level Domain: </span>{" "}
-                {country.tld}
+                {Array.isArray(country.tld)
+                  ? country.tld.join(", ")
+                  : country.tld}
               </p>
               <p className="text-sm">
                 <span className="font-bold">Currency: </span>{" "}
@@ -82,7 +92,7 @@ export default function Detail({ countries }) {
             </div>
           </div>
           <div className="p-4 pl-0 font-bold">
-            <span>Border Countries:</span>
+            <p>Border Countries:</p>
             {borderNames.length ? (
               borderNames.map((borderingCountry) => (
                 <Borders

@@ -31,35 +31,19 @@ export default function ManipulateData({
     "Population Desc.",
   ];
   return (
-    <div className="flex justify-between flex-col md:flex-row gap-4 py-4">
+    <div className="flex justify-between flex-col md:flex-row gap-4 py-4 pr-8">
       <div className="relative w-full md:w-1/4">
-        <span className="flex items-center absolute inset-y-0 left-2 md:left-6">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-5 h-5 text-gray-500"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <path
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zm0 0l5 5"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </span>
         <input
           type="text"
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
           placeholder="Search for a country.."
-          className="bg-white dark:bg-slate-800 rounded-lg text-md text-center py-2 w-full md:w-auto"
+          className="bg-white dark:bg-slate-800 rounded-lg text-md pl-10 pr-3 py-2 w-full md:w-auto"
         />
       </div>
       <select
         onChange={(e) => setSortBy(e.target.value)}
-        className="bg-white dark:bg-slate-800 w-1/2 md:w-1/4 px-3 py-2 rounded-lg"
+        className="bg-white hover:cursor-pointer dark:bg-slate-800 w-1/2 md:w-1/4 px-3 py-2 rounded-lg"
       >
         <option value="">Sort Options</option>
         {sortByOptions.map((sortByOption) => (
@@ -73,7 +57,7 @@ export default function ManipulateData({
           setSelectedRegion(e.target.value);
           setSelectedSubRegion("");
         }}
-        className="bg-white dark:bg-slate-800 w-1/2 md:w-1/4 px-3 py-2 rounded-lg"
+        className="bg-white hover:cursor-pointer dark:bg-slate-800 w-1/2 md:w-1/4 px-3 py-2 rounded-lg"
       >
         <option value="">Filter by Region</option>
         {regions.map((region) => (
@@ -85,7 +69,7 @@ export default function ManipulateData({
       {selectedRegion && (
         <select
           onChange={(e) => setSelectedSubRegion(e.target.value)}
-          className="bg-white dark:bg-slate-800 w-1/2 md:w-1/4 px-3 py-2 rounded-lg"
+          className="bg-white hover:cursor-pointer dark:bg-slate-800 w-1/2 md:w-1/4 px-3 py-2 rounded-lg"
         >
           <option value="">Filter by Sub-Region</option>
           {regionsToSubRegions[selectedRegion].map((subregion) => (

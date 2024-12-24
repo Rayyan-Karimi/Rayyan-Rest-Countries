@@ -16,7 +16,7 @@ export default function ThemeComponent() {
   };
 
   return (
-    <div className="flex items-center space-x-2" onClick={toggleDarkMode}>
+    <div className="flex hover:cursor-pointer items-center space-x-2 mr-6" onClick={toggleDarkMode}>
       {/* Inline SVG */}
       <svg
         width="24"

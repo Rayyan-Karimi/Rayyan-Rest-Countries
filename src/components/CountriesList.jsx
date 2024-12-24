@@ -2,7 +2,7 @@ import "./../App.css";
 import PropTypes from "prop-types";
 import CountryCard from "./CountryCard";
 
-export default function Countries({
+export default function CountriesList({
   countries,
   filterText,
   selectedRegion,
@@ -47,7 +47,7 @@ export default function Countries({
   );
 }
 
-Countries.propTypes = {
+CountriesList.propTypes = {
   countries: PropTypes.array.isRequired,
   filterText: PropTypes.string,
   selectedRegion: PropTypes.string,
