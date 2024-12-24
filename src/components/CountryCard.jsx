@@ -13,7 +13,7 @@ export default function CountryCard({ country }) {
       className="bg-white dark:bg-slate-700 rounded-lg shadow-md p-4 w-full"
       onClick={goToCountryDetails}
     >
-      <img className="w-full h-32 p-2" src={country.flags.png} alt={`${country.name.common}'s flag`} />
+      <img className="w-full h-auto max-h-28 p-2" src={country.flags.png} alt={`${country.name.common}'s flag`} />
       <h2 className="text-lg font-bold">{country.name.common}</h2>
       <p className="text-sm">
         <span className="font-bold">Population:</span> {country.population}

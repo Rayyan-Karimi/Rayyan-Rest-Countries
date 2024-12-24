@@ -5,10 +5,24 @@ export default function ManipulateData({
   filterText,
   setFilterText,
   countries,
+  selectedRegion,
   setSelectedRegion,
   setSortBy,
+  setSelectedSubRegion,
 }) {
+  // Finding regions from countries
   const regions = Array.from(new Set(countries.map((cont) => cont.region)));
+  // Finding regions to sub regions mapping using Set
+  const regionsToSubRegions = countries.reduce((acc, { region, subregion }) => {
+    if (!acc[region]) acc[region] = new Set();
+    acc[region].add(subregion);
+    return acc;
+  }, {});
+  // Converting values from set to array
+  Object.keys(regionsToSubRegions).forEach((region) => {
+    regionsToSubRegions[region] = Array.from(regionsToSubRegions[region]);
+  });
+  console.log("regionsToSubRegions:", regionsToSubRegions);
   const sortByOptions = ["areaAsc", "areaDesc", "popAsc", "popDesc"];
   const showSortByOptions = [
     "Area Asc.",
@@ -19,7 +33,7 @@ export default function ManipulateData({
   return (
     <div className="flex justify-between flex-col md:flex-row gap-4 py-4">
       <div className="relative w-full md:w-1/4">
-        <span className="flex items-center absolute inset-y-0 left-2">
+        <span className="flex items-center absolute inset-y-0 left-2 md:left-6">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-5 h-5 text-gray-500"
@@ -55,7 +69,10 @@ export default function ManipulateData({
         ))}
       </select>
       <select
-        onChange={(e) => setSelectedRegion(e.target.value)}
+        onChange={(e) => {
+          setSelectedRegion(e.target.value);
+          setSelectedSubRegion("");
+        }}
         className="bg-white dark:bg-slate-800 w-1/2 md:w-1/4 px-3 py-2 rounded-lg"
       >
         <option value="">Filter by Region</option>
@@ -65,6 +82,19 @@ export default function ManipulateData({
           </option>
         ))}
       </select>
+      {selectedRegion && (
+        <select
+          onChange={(e) => setSelectedSubRegion(e.target.value)}
+          className="bg-white dark:bg-slate-800 w-1/2 md:w-1/4 px-3 py-2 rounded-lg"
+        >
+          <option value="">Filter by Sub-Region</option>
+          {regionsToSubRegions[selectedRegion].map((subregion) => (
+            <option key={subregion} value={subregion}>
+              {subregion}
+            </option>
+          ))}
+        </select>
+      )}
     </div>
   );
 }
@@ -76,4 +106,5 @@ ManipulateData.propTypes = {
   selectedRegion: PropTypes.string,
   setSelectedRegion: PropTypes.func,
   setSortBy: PropTypes.func,
+  setSelectedSubRegion: PropTypes.func,
 };

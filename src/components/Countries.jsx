@@ -7,6 +7,7 @@ export default function Countries({
   filterText,
   selectedRegion,
   sortBy,
+  selectedSubRegion,
 }) {
   const handleSorting = (countries, sortBy) => {
     if (sortBy === "") return [...countries];
@@ -31,11 +32,14 @@ export default function Countries({
         c.name.common.toLowerCase().includes(filterText.toLowerCase()) ||
         c.region.toLowerCase().includes(filterText.toLowerCase())
     )
-    .filter((c) => selectedRegion === "" || c.region === selectedRegion);
+    .filter((c) => selectedRegion === "" || c.region === selectedRegion)
+    .filter(
+      (c) => selectedSubRegion === "" || c.subregion === selectedSubRegion
+    );
   const filteredAndSortedCountries = handleSorting(filteredCountries, sortBy);
 
   return (
-    <div className="bg-slate-100 dark:bg-slate-800 grid gap-4 p-4 mb-4 grid-cols-1 md:grid-cols-4">
+    <div className="bg-slate-100 dark:bg-slate-900 grid gap-10 p-8 mb-4 grid-cols-1 md:grid-cols-4">
       {filteredAndSortedCountries.map((country) => (
         <CountryCard key={country.name.common} country={country} />
       ))}
@@ -48,4 +52,5 @@ Countries.propTypes = {
   filterText: PropTypes.string,
   selectedRegion: PropTypes.string,
   sortBy: PropTypes.string,
+  selectedSubRegion: PropTypes.string,
 };

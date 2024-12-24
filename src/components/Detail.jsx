@@ -33,7 +33,7 @@ export default function Detail({ countries }) {
       </div>
       <div className="pb-24 bg-slate-200 dark:bg-slate-700 dark:text-white justify-center items-center flex flex-col md:flex-row md:justify-center gap-20 min-h-[30rem] px-[8%]">
         <img
-          className="md:h-[15vw] md:w-[30vw] shadow-2xl"
+          className="md:h-[15vw] md:w-[30vw] shadow-lg dark:shadow-slate-500"
           src={country.flags.png}
           alt={`${country.name.common}'s flag`}
         />
@@ -79,17 +79,21 @@ export default function Detail({ countries }) {
                   .sort()
                   .join(", ") || "Not available."}
               </p>
-              {borderNames.map((borderingCountry) => (
+            </div>
+          </div>
+          <div className="p-4 pl-0 font-bold">
+            <span>Border Countries:</span>
+            {borderNames.length ? (
+              borderNames.map((borderingCountry) => (
                 <Borders
                   key={borderingCountry}
                   borderingCountry={borderingCountry}
-                  countries={countries}
-                  countryMap={countryMap}
                 />
-              ))}
-            </div>
+              ))
+            ) : (
+              <p>N/A</p>
+            )}
           </div>
-          <div className="p-4 pl-0 font-bold">Border Countries: </div>
         </div>
       </div>
     </div>

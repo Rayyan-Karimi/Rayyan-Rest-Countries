@@ -86,6 +86,7 @@ function App() {
   const [selectedRegion, setSelectedRegion] = useState("");
   const [countries, setCountries] = useState([]);
   const [sortBy, setSortBy] = useState("");
+  const [selectedSubRegion, setSelectedSubRegion] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
 
@@ -95,25 +96,6 @@ function App() {
         setIsLoading(true);
         const response = await fetch("https://restcountries.com/v3.1/all");
         const data = await response.json();
-        console.log(data);
-        // const transformedData = data.map((country) => ({
-        //   flag: country.flags.png,
-        //   name: country.name.common,
-        //   region: country.region,
-        //   population: country.population,
-        //   capital: country.capital,
-        //   area: country.area,
-        //   nativeName: country.name.official,
-        //   topLevelDomain: country.tld,
-          // currency: Object.keys(country.currencies || {}).length
-          //   ? country.currencies[Object.keys(country.currencies)[0]].name
-          //   : "N/A",
-        //   languages:
-            // Object.values(country.languages || {})
-            //   .sort()
-            //   .join(", ") || "Not available.",
-        //   subregion: country.subregion || "N/A",
-        // }));
         setCountries(data);
         setIsLoading(false);
       } catch (err) {
@@ -139,6 +121,8 @@ function App() {
               countries={countries}
               setSelectedRegion={setSelectedRegion}
               selectedRegion={selectedRegion}
+              selectedSubRegion={selectedSubRegion}
+              setSelectedSubRegion={setSelectedSubRegion}
             />
           }
         />
