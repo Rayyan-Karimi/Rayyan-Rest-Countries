@@ -31,7 +31,7 @@ export default function Detail({ countries }) {
           Back
         </button>
       </div>
-      <div className="bg-slate-200 dark:bg-slate-700 dark:text-white justify-center items-center flex flex-col md:flex-row md:justify-center gap-20 min-h-[33rem] px-[8%]">
+      <div className="bg-slate-200 dark:bg-slate-700 dark:text-white justify-center items-center flex flex-col md:flex-row md:justify-center gap-20 min-h-[100vh] md:min-h-[33rem] px-[8%]">
         <div className="flex justify-center items-center h-auto w-[80%]">
           <img
             className="shadow-lg dark:shadow-slate-500"

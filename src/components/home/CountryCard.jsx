@@ -16,17 +16,19 @@ export default function CountryCard({ country }) {
       <img className="w-full h-auto md:max-h-36 p-2" src={country.flags.png} alt={`${country.name.common}'s flag`} />
       <h2 className="text-lg font-bold">{country.name.common}</h2>
       <p className="text-sm">
-        <span className="font-bold">Population:</span> {country.population}
+        <span className="font-bold">Population: </span> {country.population}
       </p>
       <p className="text-sm">
-        <span className="font-bold">Region:</span> {country.region}
+        <span className="font-bold">Region: </span> {country.region}
       </p>
       <p className="text-sm">
-        <span className="font-bold">Capital:</span>
-        {country.capital}
+        <span className="font-bold">Capital: </span>
+        {Array.isArray(country.capital)
+                  ? country.capital.join(", ")
+                  : country.capital}
       </p>
       <p className="text-sm">
-        <span className="font-bold">Area:</span>
+        <span className="font-bold">Area: </span>
         {country.area}
       </p>
     </button>
