@@ -1,5 +1,6 @@
 import "./../../App.css";
 import PropTypes from "prop-types";
+import Dropdown from "./Dropdown";
 
 export default function ManipulateData({
   filterText,
@@ -7,105 +8,92 @@ export default function ManipulateData({
   countries,
   selectedRegion,
   setSelectedRegion,
+  sortBy,
   setSortBy,
+  selectedSubRegion,
   setSelectedSubRegion,
   selectedLanguage,
   setSelectedLanguage,
 }) {
-  // Finding regions from countries
   const regions = Array.from(new Set(countries.map((cont) => cont.region)));
-  // Finding regions to sub regions mapping using Set
   const regionsToSubRegions = countries.reduce((acc, { region, subregion }) => {
     if (!acc[region]) acc[region] = new Set();
     acc[region].add(subregion);
     return acc;
   }, {});
-  // Converting values from set to array
   Object.keys(regionsToSubRegions).forEach((region) => {
     regionsToSubRegions[region] = Array.from(regionsToSubRegions[region]);
   });
-  // Array of all languages
-  // myarr.flat
+
   const languages = Array.from(
     new Set(
-      countries.flatMap((cont) => {
-        if (cont.languages) {
-          return Object.values(cont.languages);
-        }
-      })
+      countries.flatMap((cont) =>
+        cont.languages ? Object.values(cont.languages) : []
+      )
     )
   );
-  console.log("Languages:", languages);
-  // console.log("regionsToSubRegions:", regionsToSubRegions);
-  const sortByOptions = ["areaAsc", "areaDesc", "popAsc", "popDesc"];
-  const showSortByOptions = [
-    "Area Asc.",
-    "Area Desc.",
-    "Population Asc.",
-    "Population Desc.",
+
+  const sortByOptions = [
+    { value: "areaAsc", label: "Area Asc." },
+    { value: "areaDesc", label: "Area Desc." },
+    { value: "popAsc", label: "Population Asc." },
+    { value: "popDesc", label: "Population Desc." },
   ];
+
   return (
     <div className="flex flex-wrap gap-4 py-4 justify-evenly items-center md:pr-8">
-      <input
-        type="text"
-        value={filterText}
-        onChange={(e) => setFilterText(e.target.value)}
-        placeholder="Search for a country.."
-        className="bg-white dark:bg-slate-800 rounded-lg text-md pl-10 pr-3 py-2 w-[80%] md:w-min"
+      {/* Search Input */}
+      <div className="flex flex-col">
+        <label>Search</label>
+        <input
+          type="text"
+          value={filterText}
+          onChange={(e) => setFilterText(e.target.value)}
+          placeholder="Search for a country.."
+          className="bg-white dark:bg-slate-800 rounded-lg text-md pl-10 pr-3 py-2 w-[80%] md:w-min"
+        />
+      </div>
+
+      {/* Language Filter */}
+      <Dropdown
+        label="Language"
+        options={languages.map((lang) => ({ value: lang, label: lang }))}
+        selectedValue={selectedLanguage}
+        onChange={(value) => {
+          setSelectedLanguage(value);
+        }}
       />
-      <select
-        onChange={(e) => setSortBy(e.target.value)}
-        className="bg-white hover:cursor-pointer dark:bg-slate-800 w-min px-3 py-2 rounded-lg"
-      >
-        <option value="">Sort Options</option>
-        {sortByOptions.map((sortByOption) => (
-          <option key={sortByOption} value={sortByOption}>
-            {showSortByOptions[sortByOptions.indexOf(sortByOption)]}
-          </option>
-        ))}
-      </select>
-      <select
-        onChange={(e) => {
-          setSelectedLanguage(e.target.value);
-          setSelectedSubRegion("");
-          setSelectedRegion("");
-          console.log("selectedLanguage", e.target.value);
-        }}
-        className="bg-white hover:cursor-pointer dark:bg-slate-800 w-min px-3 py-2 rounded-lg"
-      >
-        <option value="">Filter by Language</option>
-        {languages.map((language) => (
-          <option key={language} value={language}>
-            {language}
-          </option>
-        ))}
-      </select>
-      <select
-        onChange={(e) => {
-          setSelectedRegion(e.target.value);
+
+      {/* Sort Options */}
+      <Dropdown
+        label="Sort"
+        options={sortByOptions}
+        selectedValue={sortBy}
+        onChange={setSortBy}
+      />
+
+      {/* Region Filter */}
+      <Dropdown
+        label="Region"
+        options={regions.map((region) => ({ value: region, label: region }))}
+        selectedValue={selectedRegion}
+        onChange={(value) => {
+          setSelectedRegion(value);
           setSelectedSubRegion("");
         }}
-        className="bg-white hover:cursor-pointer dark:bg-slate-800 w-min px-3 py-2 rounded-lg"
-      >
-        <option value="">Filter by Region</option>
-        {regions.map((region) => (
-          <option key={region} value={region}>
-            {region}
-          </option>
-        ))}
-      </select>
+      />
+
+      {/* Subregion Filter */}
       {selectedRegion && (
-        <select
-          onChange={(e) => setSelectedSubRegion(e.target.value)}
-          className="bg-white hover:cursor-pointer dark:bg-slate-800 w-min px-3 py-2 rounded-lg"
-        >
-          <option value="">Filter by Sub-Region</option>
-          {regionsToSubRegions[selectedRegion].map((subregion) => (
-            <option key={subregion} value={subregion}>
-              {subregion}
-            </option>
-          ))}
-        </select>
+        <Dropdown
+          label="Subregion"
+          options={regionsToSubRegions[selectedRegion].map((subregion) => ({
+            value: subregion,
+            label: subregion,
+          }))}
+          selectedValue={selectedSubRegion}
+          onChange={setSelectedSubRegion}
+        />
       )}
     </div>
   );
@@ -113,12 +101,14 @@ export default function ManipulateData({
 
 ManipulateData.propTypes = {
   filterText: PropTypes.string,
-  setFilterText: PropTypes.func,
+  setFilterText: PropTypes.func.isRequired,
   countries: PropTypes.array.isRequired,
   selectedRegion: PropTypes.string,
-  setSelectedRegion: PropTypes.func,
-  setSortBy: PropTypes.func,
-  setSelectedSubRegion: PropTypes.func,
+  setSelectedRegion: PropTypes.func.isRequired,
+  setSortBy: PropTypes.func.isRequired,
+  setSelectedSubRegion: PropTypes.func.isRequired,
   selectedLanguage: PropTypes.string,
-  setSelectedLanguage: PropTypes.func,
+  setSelectedLanguage: PropTypes.func.isRequired,
+  sortBy: PropTypes.string,
+  selectedSubRegion: PropTypes.string,
 };

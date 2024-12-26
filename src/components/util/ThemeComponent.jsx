@@ -1,24 +1,20 @@
+import { useTheme } from "./../../ThemeContext";
 import "./../../App.css";
-import { useState } from "react";
 
 export default function ThemeComponent() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { isDarkMode, toggleDarkMode } = useTheme();
+
   if (isDarkMode) {
     document.body.classList.add("dark");
   } else {
     document.body.classList.remove("dark");
   }
 
-  const toggleDarkMode = () => {
-    setIsDarkMode((prev) => !prev);
-  };
-
   return (
     <div
       className="flex hover:cursor-pointer items-center space-x-2 mr-6"
       onClick={toggleDarkMode}
     >
-      {/* Inline SVG */}
       <svg
         width="24"
         height="24"
