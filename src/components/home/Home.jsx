@@ -10,8 +10,10 @@ export default function Home({
   countries,
   setSelectedRegion,
   selectedRegion,
+  selectedLanguage,
   selectedSubRegion,
   setSelectedSubRegion,
+  setSelectedLanguage,
 }) {
   return (
     <div className="px-4 bg-slate-100 py-2 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-w-screen min-h-screen">
@@ -26,6 +28,8 @@ export default function Home({
         setSelectedSubRegion={setSelectedSubRegion}
         sortBy={sortBy}
         setSortBy={setSortBy}
+        selectedLanguage={selectedLanguage}
+        setSelectedLanguage={setSelectedLanguage}
       />
       <CountriesList
         countries={countries}
@@ -33,6 +37,7 @@ export default function Home({
         selectedRegion={selectedRegion}
         selectedSubRegion={selectedSubRegion}
         sortBy={sortBy}
+        selectedLanguage={selectedLanguage}
       />
     </div>
   );
@@ -42,6 +47,8 @@ Home.propTypes = {
   filterText: PropTypes.string,
   sortBy: PropTypes.string,
   setSortBy: PropTypes.func,
+  selectedLanguage: PropTypes.string,
+  setSelectedLanguage: PropTypes.func,
   setFilterText: PropTypes.func,
   countries: PropTypes.arrayOf(PropTypes.object).isRequired,
   setSelectedRegion: PropTypes.func,

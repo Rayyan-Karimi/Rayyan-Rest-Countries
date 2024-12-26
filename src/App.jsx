@@ -9,6 +9,7 @@ import IsLoading from "./components/util/IsLoading";
 function App() {
   const [filterText, setFilterText] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState('');
   const [countries, setCountries] = useState([]);
   const [sortBy, setSortBy] = useState("");
   const [selectedSubRegion, setSelectedSubRegion] = useState("");
@@ -52,11 +53,13 @@ function App() {
                   sortBy={sortBy}
                   setSortBy={setSortBy}
                   setFilterText={setFilterText}
+                  selectedLanguage={selectedLanguage}
                   countries={countries}
                   setSelectedRegion={setSelectedRegion}
                   selectedRegion={selectedRegion}
                   selectedSubRegion={selectedSubRegion}
                   setSelectedSubRegion={setSelectedSubRegion}
+                  setSelectedLanguage={setSelectedLanguage}
                 />
               }
             />

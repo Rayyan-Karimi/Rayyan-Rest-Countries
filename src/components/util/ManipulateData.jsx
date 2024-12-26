@@ -9,6 +9,8 @@ export default function ManipulateData({
   setSelectedRegion,
   setSortBy,
   setSelectedSubRegion,
+  selectedLanguage,
+  setSelectedLanguage,
 }) {
   // Finding regions from countries
   const regions = Array.from(new Set(countries.map((cont) => cont.region)));
@@ -22,7 +24,19 @@ export default function ManipulateData({
   Object.keys(regionsToSubRegions).forEach((region) => {
     regionsToSubRegions[region] = Array.from(regionsToSubRegions[region]);
   });
-  console.log("regionsToSubRegions:", regionsToSubRegions);
+  // Array of all languages
+  // myarr.flat
+  const languages = Array.from(
+    new Set(
+      countries.flatMap((cont) => {
+        if (cont.languages) {
+          return Object.values(cont.languages);
+        }
+      })
+    )
+  );
+  console.log("Languages:", languages);
+  // console.log("regionsToSubRegions:", regionsToSubRegions);
   const sortByOptions = ["areaAsc", "areaDesc", "popAsc", "popDesc"];
   const showSortByOptions = [
     "Area Asc.",
@@ -47,6 +61,22 @@ export default function ManipulateData({
         {sortByOptions.map((sortByOption) => (
           <option key={sortByOption} value={sortByOption}>
             {showSortByOptions[sortByOptions.indexOf(sortByOption)]}
+          </option>
+        ))}
+      </select>
+      <select
+        onChange={(e) => {
+          setSelectedLanguage(e.target.value);
+          setSelectedSubRegion("");
+          setSelectedRegion("");
+          console.log("selectedLanguage", e.target.value);
+        }}
+        className="bg-white hover:cursor-pointer dark:bg-slate-800 w-min px-3 py-2 rounded-lg"
+      >
+        <option value="">Filter by Language</option>
+        {languages.map((language) => (
+          <option key={language} value={language}>
+            {language}
           </option>
         ))}
       </select>
@@ -89,4 +119,6 @@ ManipulateData.propTypes = {
   setSelectedRegion: PropTypes.func,
   setSortBy: PropTypes.func,
   setSelectedSubRegion: PropTypes.func,
+  selectedLanguage: PropTypes.string,
+  setSelectedLanguage: PropTypes.func,
 };
