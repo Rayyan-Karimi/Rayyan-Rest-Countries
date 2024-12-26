@@ -7,19 +7,20 @@ export default function Detail({ countries }) {
   const navigate = useNavigate();
   const { name } = useParams();
 
+  
   const country = countries.find((c) => c.name.common === name);
   if (!country) return <p>No such country found.</p>;
 
-  console.log("Ccountry:", country);
+
   const countryMap = new Map(
     countries.map((country) => [country.cca3, country.name.common])
   );
-  console.log("Country MAP:", countryMap);
-  console.log("Borders available:", country.borders);
+
+
   const borderNames = (country.borders || []).map((code) =>
     countryMap.get(code)
   );
-  console.log("Border:", borderNames);
+
 
   return (
     <div>
@@ -34,7 +35,7 @@ export default function Detail({ countries }) {
       <div className="bg-slate-200 dark:bg-slate-700 dark:text-white justify-center items-center flex flex-col md:flex-row md:justify-center gap-20 min-h-[100vh] md:min-h-[33rem] px-[8%]">
         <div className="flex justify-center items-center h-auto w-[80%]">
           <img
-            className="shadow-lg dark:shadow-slate-500"
+            className="shadow-lg dark:shadow-slate-900"
             src={country.flags.png}
             alt={`${country.name.common}'s flag`}
           />
@@ -53,7 +54,7 @@ export default function Detail({ countries }) {
               </p>
               <p className="text-sm">
                 <span className="font-bold">Population: </span>{" "}
-                {country.population}
+                {country.population.toLocaleString()}
               </p>
               <p className="text-sm">
                 <span className="font-bold">Region: </span>
@@ -101,7 +102,7 @@ export default function Detail({ countries }) {
                 />
               ))
             ) : (
-              <p>N/A</p>
+              <p className="text-sm font-light">No bordering countries.</p>
             )}
           </div>
         </div>

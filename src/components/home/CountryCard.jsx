@@ -1,39 +1,38 @@
-import "./../../App.css";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
 export default function CountryCard({ country }) {
   const navigate = useNavigate();
-  const goToCountryDetails = () => {
-    navigate(`/${country.name.common}`);
+  const handleClick = () => {
+    navigate(`/${country.name.common}`); // Navigating to the details page for the clicked country
   };
 
   return (
     <button
-      className="min-h-80 md:min-h-64 bg-white dark:bg-slate-700 rounded-lg shadow-md p-4 max-w-56"
-      onClick={goToCountryDetails}
+      onClick={handleClick}
+      className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 overflow-hidden"
     >
-      <img className="w-full h-auto md:max-h-36 p-2" src={country.flags.png} alt={`${country.name.common}'s flag`} />
-      <h2 className="text-lg font-bold">{country.name.common}</h2>
-      <p className="text-sm">
-        <span className="font-bold">Population: </span> {country.population}
-      </p>
-      <p className="text-sm">
-        <span className="font-bold">Region: </span> {country.region}
-      </p>
-      <p className="text-sm">
-        <span className="font-bold">Capital: </span>
-        {Array.isArray(country.capital)
-                  ? country.capital.join(", ")
-                  : country.capital}
-      </p>
-      <p className="text-sm">
-        <span className="font-bold">Area: </span>
-        {country.area}
-      </p>
+      <img
+        src={country.flags.png}
+        alt={`${country.name.common} flag`}
+        className="w-full h-36 object-cover rounded-md"
+      />
+      <h3 className="text-xl font-semibold mt-2">{country.name.common}</h3>
+      <p>Population: {country.population.toLocaleString()}</p>
+      <p>Region: {country.region}</p>
+      <p>Subregion: {country.subregion}</p>
     </button>
   );
 }
+
 CountryCard.propTypes = {
-  country: PropTypes.object.isRequired,
+  country: PropTypes.shape({
+    name: PropTypes.shape({
+      common: PropTypes.string.isRequired,
+    }).isRequired,
+    flags: PropTypes.any,
+    population: PropTypes.number.isRequired,
+    region: PropTypes.string.isRequired,
+    subregion: PropTypes.string,
+  }).isRequired,
 };
