@@ -18,9 +18,9 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setCountries(
-          await (await fetch("https://restcountries.com/v3.1/all")).json()
-        );
+        const response = await fetch("https://restcountries.com/v3.1/all");
+        const data = await response.json();
+        setCountries(data);
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
